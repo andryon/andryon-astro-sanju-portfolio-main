@@ -17,7 +17,7 @@ const { title, description, image = '/images/ogimage.png' } = Astro.props;
 <script is:inline>
 	const theme = (() => {
 		if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-			return localStorage.getItem('theme') || 'light';
+			return localStorage.getItem('theme');
 		}
 		if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
 			return 'dark';
@@ -25,11 +25,15 @@ const { title, description, image = '/images/ogimage.png' } = Astro.props;
 		return 'light';
 	})();
 
-	if (theme === 'dark') {
-		document.documentElement.classList.add('dark');
-	} else {
+	if (theme === 'light') {
 		document.documentElement.classList.remove('dark');
+		document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#ffffff');
+	} else {
+		document.documentElement.classList.add('dark');
+		document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#000000');
 	}
+
+	document.documentElement.setAttribute('data-theme', theme);
 </script>
 
 <!-- umami analytics -->{
@@ -68,13 +72,13 @@ const { title, description, image = '/images/ogimage.png' } = Astro.props;
 <meta charset='utf-8' />
 <meta
 	name='viewport'
-	content='width=device-width,initial-scale=1'
+	content='width=device-width,initial-scale=1, viewport-fit=cover'
 />
 <meta name="color-scheme" content="light dark" />
 
 <!-- iOS UI -->
 <meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
 <!-- Favicons -->
 <link
@@ -157,16 +161,6 @@ const { title, description, image = '/images/ogimage.png' } = Astro.props;
 <meta
 	name='msapplication-TileImage'
 	content='/ms-icon-144x144.png'
-/>
-<meta
-	name='theme-color'
-	content='#ffffff'
-	media='(prefers-color-scheme: light)'
-/>
-<meta
-	name='theme-color'
-	content='#000000'
-	media='(prefers-color-scheme: dark)'
 />
 
 <!-- Dynamic iOS meta theme -->
