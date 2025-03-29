@@ -42,13 +42,6 @@ const { title, description, pubDate, heroImage, readingTime } = Astro.props;
 						{readingTime} min read
 					</p>
 				</div>
-				<p
-					class='w-full text-start font-medium text-gray-700 dark:text-gray-300 text-lg'>
-					<span class='font-semibold text-gray-900 dark:text-white'
-						>tl;dr:
-					</span>
-					{description}
-				</p>
 				<!-- we're using the Image component from Astro to handle the image optimization -->
 				{
 					heroImage && (
