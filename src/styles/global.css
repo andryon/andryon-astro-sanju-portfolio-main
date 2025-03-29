@@ -4,36 +4,60 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --transition-duration: 200ms;
+    --focus-ring-color: theme('colors.blue.500');
+    color-scheme: light dark;
+  }
+
+  /* System theme variables */
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #000000;
+      --focus-ring-color: theme('colors.blue.600');
+    }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg-color: #000000;
+      --text-color: #ffffff;
+      --focus-ring-color: theme('colors.blue.400');
+    }
+  }
+
+  /* Smooth transitions */
+  *, *::before, *::after {
+    transition: background-color var(--transition-duration) ease,
+                border-color var(--transition-duration) ease,
+                color var(--transition-duration) ease,
+                fill var(--transition-duration) ease,
+                stroke var(--transition-duration) ease,
+                opacity var(--transition-duration) ease;
+  }
+
+  /* Improved focus styles */
+  *:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--focus-ring-color);
+    border-radius: 0.25rem;
+  }
+
+  /* Base styles */
   html {
     @apply scroll-smooth;
   }
 
   body {
     font-family: 'UncutSans', sans-serif;
-    @apply bg-white text-black dark:bg-black dark:text-white theme-transition;
+    background-color: var(--bg-color);
+    color: var(--text-color);
   }
 
-  /* System accent color support */
-  :root {
-    color-scheme: light dark;
-  }
-
-  @media (prefers-color-scheme: light) {
-    :root {
-      --accent-color: #000000;
-    }
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --accent-color: #ffffff;
-    }
-  }
-
-  /* Use system accent color for focus rings */
-  *:focus-visible {
-    outline: 2px solid var(--accent-color);
-    outline-offset: 2px;
+  /* Theme transition class */
+  .theme-transition {
+    transition: all var(--transition-duration) cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   @font-face {
@@ -80,3 +104,4 @@
     font-weight: 400;
   }
 }
+

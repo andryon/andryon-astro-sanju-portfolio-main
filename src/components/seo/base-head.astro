@@ -21,30 +21,36 @@ const { title, description, image = '/images/ogimage.png' } = Astro.props;
 			const root = document.documentElement;
 			const isDark = newTheme === 'dark';
 
-			// Update classes
-			if (isDark) {
-				root.classList.add('dark');
-			} else {
-				root.classList.remove('dark');
-			}
+			// Update classes smoothly
+			requestAnimationFrame(() => {
+				if (isDark) {
+					root.classList.add('dark');
+				} else {
+					root.classList.remove('dark');
+				}
 
-			// Update theme color for iOS
-			const themeColor = isDark ? '#000000' : '#ffffff';
-			document.querySelector('meta[name="theme-color"]')?.setAttribute('content', themeColor);
+				// Update theme color for iOS
+				const themeColor = isDark ? '#000000' : '#ffffff';
+				document.querySelector('meta[name="theme-color"]')?.setAttribute('content', themeColor);
+				
+				// Update status bar style
+				const statusBarStyle = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
+				if (statusBarStyle) {
+					statusBarStyle.setAttribute('content', isDark ? 'black-translucent' : 'default');
+				}
 
-			// Store theme
-			localStorage.setItem('theme', newTheme);
-			root.setAttribute('data-theme', newTheme);
+				// Store theme
+				localStorage.setItem('theme', newTheme);
+				root.setAttribute('data-theme', newTheme);
+			});
 		},
 
 		getTheme: function() {
-			if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-				return localStorage.getItem('theme');
+			const savedTheme = localStorage.getItem('theme');
+			if (savedTheme === 'light' || savedTheme === 'dark') {
+				return savedTheme;
 			}
-			if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-				return 'dark';
-			}
-			return 'light';
+			return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 		}
 	};
 
@@ -52,12 +58,24 @@ const { title, description, image = '/images/ogimage.png' } = Astro.props;
 	window.themeManager.setTheme(window.themeManager.getTheme());
 
 	// Listen for system theme changes
-	window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+	const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+	mediaQuery.addEventListener('change', (e) => {
 		if (!localStorage.getItem('theme')) {
-			window.themeManager.setTheme(e.matches ? 'dark' : 'light');
+			requestAnimationFrame(() => {
+				window.themeManager.setTheme(e.matches ? 'dark' : 'light');
+			});
 		}
 	});
 </script>
+
+<!-- Meta tags for theme color -->
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+
+<!-- iOS specific meta tags -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="color-scheme" content="light dark">
 
 <!-- umami analytics -->{
 	import.meta.env.PROD && (
@@ -97,11 +115,6 @@ const { title, description, image = '/images/ogimage.png' } = Astro.props;
 	name='viewport'
 	content='width=device-width,initial-scale=1, viewport-fit=cover'
 />
-<meta name="color-scheme" content="light dark" />
-
-<!-- iOS UI -->
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
 <!-- Favicons -->
 <link
