@@ -1,8 +1,13 @@
 <div
 	id='root-container'
-	class='w-full flex flex-col items-center justify-start my-6 p-4 antialiased max-w-xl mx-auto'>
+	class='w-full flex flex-col items-center justify-start my-6 p-4 antialiased max-w-xl mx-auto page-transition'>
 	<slot />
 </div>
+
+<!-- Import the scroll-to-top component -->
+<script>
+	import "@components/misc/scroll-to-top.astro";
+</script>
 
 <head>
 	<!-- Your existing head content -->

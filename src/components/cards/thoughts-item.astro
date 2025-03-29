@@ -11,7 +11,7 @@ const { category, content, pubDate, index, slug } = Astro.props;
 	<article
 		id={category}
 		class={clsx(
-			'flex flex-col w-full items-center justify-between gap-3 p-6 relative transition-all duration-75 ease-in-out',
+			'flex flex-col w-full items-center justify-between gap-3 p-6 relative transition-all duration-300 ease-in-out hover:shadow-md',
 			getCategoryColor(category), // set the background color based on category
 			index % 2 === 0 ? 'rotate-1 hover:rotate-0' : '-rotate-1 hover:-rotate-0' // rotate the card
 		)}>

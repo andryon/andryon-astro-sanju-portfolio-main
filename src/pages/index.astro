@@ -19,7 +19,7 @@ import RootLayout from '@layouts/root-layout.astro';
 	<RootLayout>
 		<div
 			id='navbar+title'
-			class='flex flex-col w-full gap-6 max-w-xl lowercase'>
+			class='flex flex-col w-full gap-6 max-w-xl lowercase animate-fade-in'>
 			<Header />
 			<h1
 				class='w-full text-start text-[min(12vw,72px)] font-medium leading-[0.9] tracking-[-2px] sm:tracking-[-4px]'>
@@ -29,7 +29,7 @@ import RootLayout from '@layouts/root-layout.astro';
 
 			<div
 				id='about'
-				class='flex flex-col gap-4'>
+				class='flex flex-col gap-4 animate-slide-up stagger-children'>
 				<div class='font-medium text-lg text-gray-700 dark:text-gray-400'>
 					I run <a
 						href='https://thisux.com'
@@ -48,7 +48,7 @@ import RootLayout from '@layouts/root-layout.astro';
 								<a
 									href={product.url}
 									target='_blank'
-									class='p-2 rounded-full gap-2 flex-wrap hover:rotate-1 hover:scale-105 transition-all duration-300 flex items-center justify-center bg-gray-100 hover:bg-gray-200 dark:bg-[#1F1F1F] dark:hover:bg-[#2F2F2F]'>
+									class='p-2 rounded-full gap-2 flex-wrap hover:rotate-1 hover:scale-105 hover:shadow-md transition-all duration-300 flex items-center justify-center bg-gray-100 hover:bg-gray-200 dark:bg-[#1F1F1F] dark:hover:bg-[#2F2F2F] theme-transition'>
 									<img
 										src={product.image}
 										alt={product.name}
@@ -79,7 +79,7 @@ import RootLayout from '@layouts/root-layout.astro';
 
 			<div
 				id='social-links'
-				class='flex flex-row gap-4'>
+				class='flex flex-row gap-4 animate-slide-up' style='animation-delay: 0.3s;'>
 				{
 					socialLinks.map((link) => (
 						<a

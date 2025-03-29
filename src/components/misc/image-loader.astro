@@ -1,0 +1,57 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  class?: string;
+  width?: number;
+  height?: number;
+}
+
+const { src, alt, class: className = '', width, height } = Astro.props;
+---
+
+<div class={`image-wrapper relative overflow-hidden ${className}`}>
+  <img
+    src={src}
+    alt={alt}
+    width={width}
+    height={height}
+    loading="lazy"
+    decoding="async"
+    class="w-full h-auto transition-opacity duration-500 opacity-0"
+    onload="this.classList.remove('opacity-0'); this.classList.add('opacity-100');"
+  />
+  <div class="placeholder absolute inset-0 bg-gray-200 dark:bg-gray-800 animate-pulse-slow"></div>
+</div>
+
+<style>
+  .image-wrapper img.opacity-100 + .placeholder {
+    display: none;
+  }
+</style>
+
+<script>
+  // Implement Intersection Observer for better lazy loading
+  document.addEventListener('DOMContentLoaded', () => {
+    const imageWrappers = document.querySelectorAll('.image-wrapper');
+    
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target.querySelector('img');
+            if (img && img.getAttribute('data-src')) {
+              img.src = img.getAttribute('data-src');
+              img.removeAttribute('data-src');
+            }
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: '50px' });
+      
+      imageWrappers.forEach(wrapper => {
+        observer.observe(wrapper);
+      });
+    }
+  });
+</script>

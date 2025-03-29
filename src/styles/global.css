@@ -1,3 +1,4 @@
+@import './animations.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,7 +10,7 @@
 
   body {
     font-family: 'UncutSans', sans-serif;
-    @apply bg-white text-black dark:bg-black dark:text-white;
+    @apply bg-white text-black dark:bg-black dark:text-white theme-transition;
   }
 
 
