@@ -1,7 +1,7 @@
 import { ViewTransition } from 'astro:transitions';
 import ThemeToggle from '../components/ThemeToggle.astro';
 
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <!-- Tambahkan style blocking -->
     <style is:inline>
@@ -13,6 +13,7 @@ import ThemeToggle from '../components/ThemeToggle.astro';
       html {
         background-color: var(--theme-bg);
         color: var(--theme-text);
+        transition: background-color 0.3s ease, color 0.3s ease;
       }
 
       body {
@@ -47,7 +48,7 @@ import ThemeToggle from '../components/ThemeToggle.astro';
       (function() {
         function getTheme() {
           if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-            return localStorage.getItem('theme');
+            return localStorage.getItem('theme') || 'light';
           }
           return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         }
@@ -55,15 +56,20 @@ import ThemeToggle from '../components/ThemeToggle.astro';
         const theme = getTheme();
         document.documentElement.classList.add(theme);
         document.documentElement.style.colorScheme = theme;
+        
+        if (theme === 'dark') {
+          document.documentElement.style.setProperty('--theme-bg', '#000000');
+          document.documentElement.style.setProperty('--theme-text', '#ffffff');
+        } else {
+          document.documentElement.style.setProperty('--theme-bg', '#ffffff');
+          document.documentElement.style.setProperty('--theme-text', '#000000');
+        }
       })();
     </script>
   </head>
-  <body class="bg-[#000000] text-white">
-    <nav>
-      <theme-toggle>
-        <!-- Import ThemeToggle component at the top of the file -->
-        {/* Need to import ThemeToggle component */}
-      </theme-toggle>
+  <body class="bg-[var(--theme-bg)] text-[var(--theme-text)]">
+    <nav class="p-4 flex justify-end">
+      <theme-toggle></theme-toggle>
     </nav>
     <main>
       <slot />

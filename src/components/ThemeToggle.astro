@@ -43,75 +43,80 @@
 <style>
   .theme-toggle {
     border: 0;
-    padding: 0;
+    padding: 0.5rem;
     background: transparent;
     cursor: pointer;
     touch-action: manipulation;
     position: relative;
-    --theme-toggle-size: 24px;
-    -webkit-tap-highlight-color: transparent;
+    color: var(--theme-text);
+    transition: color 0.2s ease;
+  }
+
+  .theme-toggle:hover {
+    opacity: 0.8;
   }
 
   .theme-toggle__icon {
-    position: relative;
-    width: var(--theme-toggle-size);
-    height: var(--theme-toggle-size);
-    color: var(--color-text);
     transition: transform 0.3s ease;
   }
 
-  :global(.dark) .theme-toggle__icon {
-    transform: rotate(180deg);
+  .theme-toggle:hover .theme-toggle__icon {
+    transform: rotate(15deg);
   }
 </style>
 
 <script>
   class ThemeToggle extends HTMLElement {
+    private button: HTMLButtonElement | null;
+
     constructor() {
       super();
-      this.toggleTheme = this.toggleTheme.bind(this);
+      this.button = this.querySelector('#theme-toggle');
+      this.setupTheme();
+      this.setupListeners();
     }
 
     connectedCallback() {
-      const button = this.querySelector('button');
-      if (button) {
-        button.addEventListener('click', this.toggleTheme);
-      }
-      
-      // Set initial theme
-      const initialTheme = this.getTheme();
-      if (initialTheme) {
-        this.setTheme(initialTheme);
+      this.setupTheme();
+      this.setupListeners();
+    }
+
+    setupTheme() {
+      const theme = this.getTheme();
+      this.setTheme(theme);
+    }
+
+    setupListeners() {
+      if (this.button) {
+        this.button.addEventListener('click', () => {
+          const currentTheme = this.getTheme();
+          this.setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        });
       }
     }
 
-    disconnectedCallback() {
-      const button = this.querySelector('button');
-      if (button) {
-        button.removeEventListener('click', this.toggleTheme);
-      }
-    }
-
-    getTheme() {
+    getTheme(): string {
       if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-        return localStorage.getItem('theme');
+        return localStorage.getItem('theme') || 'light';
       }
       return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
 
-    setTheme(theme: string) {
-      document.documentElement.classList.remove('light', 'dark');
-      document.documentElement.classList.add(theme);
+    setTheme(theme: string): void {
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+        document.documentElement.style.setProperty('--theme-bg', '#000000');
+        document.documentElement.style.setProperty('--theme-text', '#ffffff');
+      } else {
+        document.documentElement.classList.remove('dark');
+        document.documentElement.style.setProperty('--theme-bg', '#ffffff');
+        document.documentElement.style.setProperty('--theme-text', '#000000');
+      }
       localStorage.setItem('theme', theme);
-      document.documentElement.style.colorScheme = theme;
-    }
-
-    toggleTheme() {
-      const currentTheme = this.getTheme();
-      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-      this.setTheme(newTheme);
     }
   }
 
-  customElements.define('theme-toggle', ThemeToggle);
+  if (!customElements.get('theme-toggle')) {
+    customElements.define('theme-toggle', ThemeToggle);
+  }
 </script>
