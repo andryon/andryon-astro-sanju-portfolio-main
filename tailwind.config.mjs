@@ -6,7 +6,16 @@ export default {
 		fontFamily: {
 			uncut: ["UncutSans", "sans-serif"],
 		},
-		extend: {},
+		extend: {
+			colors: {
+				background: 'var(--background)',
+				foreground: 'var(--foreground)',
+				card: 'var(--card)',
+				'card-foreground': 'var(--card-foreground)',
+				popover: 'var(--popover)',
+				'popover-foreground': 'var(--popover-foreground)',
+			},
+		},
 	},
 	plugins: [require("@tailwindcss/typography")],
 };
