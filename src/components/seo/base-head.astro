@@ -15,25 +15,48 @@ const { title, description, image = '/images/ogimage.png' } = Astro.props;
 
 <!-- Add this before other head content -->
 <script is:inline>
-	const theme = (() => {
-		if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-			return localStorage.getItem('theme');
-		}
-		if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-			return 'dark';
-		}
-		return 'light';
-	})();
+	// Theme management functions
+	window.themeManager = {
+		setTheme: function(newTheme) {
+			const root = document.documentElement;
+			const isDark = newTheme === 'dark';
 
-	if (theme === 'light') {
-		document.documentElement.classList.remove('dark');
-		document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#ffffff');
-	} else {
-		document.documentElement.classList.add('dark');
-		document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#000000');
-	}
+			// Update classes
+			if (isDark) {
+				root.classList.add('dark');
+			} else {
+				root.classList.remove('dark');
+			}
 
-	document.documentElement.setAttribute('data-theme', theme);
+			// Update theme color for iOS
+			const themeColor = isDark ? '#000000' : '#ffffff';
+			document.querySelector('meta[name="theme-color"]')?.setAttribute('content', themeColor);
+
+			// Store theme
+			localStorage.setItem('theme', newTheme);
+			root.setAttribute('data-theme', newTheme);
+		},
+
+		getTheme: function() {
+			if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+				return localStorage.getItem('theme');
+			}
+			if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+				return 'dark';
+			}
+			return 'light';
+		}
+	};
+
+	// Initialize theme
+	window.themeManager.setTheme(window.themeManager.getTheme());
+
+	// Listen for system theme changes
+	window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+		if (!localStorage.getItem('theme')) {
+			window.themeManager.setTheme(e.matches ? 'dark' : 'light');
+		}
+	});
 </script>
 
 <!-- umami analytics -->{
@@ -162,24 +185,6 @@ const { title, description, image = '/images/ogimage.png' } = Astro.props;
 	name='msapplication-TileImage'
 	content='/ms-icon-144x144.png'
 />
-
-<!-- Dynamic iOS meta theme -->
-<script is:inline>
-  // Update iOS theme color based on dark mode
-  function updateIOSThemeColor() {
-    const isDark = document.documentElement.classList.contains('dark');
-    const themeColorMeta = document.querySelector('meta[name="theme-color"]');
-    if (themeColorMeta) {
-      themeColorMeta.setAttribute('content', isDark ? '#000000' : '#ffffff');
-    }
-  }
-
-  // Initial update
-  updateIOSThemeColor();
-
-  // Update on theme change
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateIOSThemeColor);
-</script>
 
 <meta
 	name='generator'
