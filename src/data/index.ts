@@ -1,5 +1,5 @@
-export const SITE_TITLE = "Sanju's Space";
-export const SITE_DESCRIPTION = "A internet space for Sanju.";
+export const SITE_TITLE = "Andryon's Space";
+export const SITE_DESCRIPTION = "A internet space for Andryon.";
 
 export interface MenuItem {
 	label: string;
@@ -25,14 +25,14 @@ export const menuItems: MenuItem[] = [
 	},
 ];
 
-export const title = "Sanju's Space";
-export const description = "A internet space for Sanju.";
+export const title = "Andryon's Space";
+export const description = "A internet space for Andryon.";
 export const image = "/images/ogimage.png";
-export const url = "https://sanju.sh";
+export const url = "https://andryon.space";
 
 export const ogImage = {
 	src: "/images/ogimage.png",
-	alt: "Sanju's Space",
+	alt: "Andryon's Space",
 };
 
 
