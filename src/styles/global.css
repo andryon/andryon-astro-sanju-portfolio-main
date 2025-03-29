@@ -13,6 +13,28 @@
     @apply bg-white text-black dark:bg-black dark:text-white theme-transition;
   }
 
+  /* System accent color support */
+  :root {
+    color-scheme: light dark;
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      --accent-color: #000000;
+    }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --accent-color: #ffffff;
+    }
+  }
+
+  /* Use system accent color for focus rings */
+  *:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+  }
 
   @font-face {
     font-family: 'UncutSans';

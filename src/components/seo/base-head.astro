@@ -70,6 +70,11 @@ const { title, description, image = '/images/ogimage.png' } = Astro.props;
 	name='viewport'
 	content='width=device-width,initial-scale=1'
 />
+<meta name="color-scheme" content="light dark" />
+
+<!-- iOS UI -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
 <!-- Favicons -->
 <link
@@ -156,7 +161,31 @@ const { title, description, image = '/images/ogimage.png' } = Astro.props;
 <meta
 	name='theme-color'
 	content='#ffffff'
+	media='(prefers-color-scheme: light)'
 />
+<meta
+	name='theme-color'
+	content='#000000'
+	media='(prefers-color-scheme: dark)'
+/>
+
+<!-- Dynamic iOS meta theme -->
+<script is:inline>
+  // Update iOS theme color based on dark mode
+  function updateIOSThemeColor() {
+    const isDark = document.documentElement.classList.contains('dark');
+    const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+    if (themeColorMeta) {
+      themeColorMeta.setAttribute('content', isDark ? '#000000' : '#ffffff');
+    }
+  }
+
+  // Initial update
+  updateIOSThemeColor();
+
+  // Update on theme change
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateIOSThemeColor);
+</script>
 
 <meta
 	name='generator'
