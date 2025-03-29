@@ -41,28 +41,44 @@ export const products = [
 		name: "Fli.so",
 		url: "https://fli.so",
 		image: "/products/fli.png",
+		description: "A modern URL shortener with powerful analytics and customization features",
+		categories: ["Web App", "SaaS"],
+		technologies: ["Next.js", "TypeScript", "TailwindCSS"]
 	},
 	{
 		name: "Uiino",
 		url: "https://uiino.com",
 		image: "/products/uiino.png",
+		description: "A design system and component library for modern web applications",
+		categories: ["Design System", "UI Library"],
+		technologies: ["React", "TypeScript", "Storybook"]
 	},
 	{
 		name: "SticAI",
 		url: "https://sticai.com",
 		image: "/products/sticai.png",
+		description: "AI-powered sticker creation platform for messaging apps",
+		categories: ["AI", "Creative Tools"],
+		technologies: ["Python", "TensorFlow", "React"]
 	},
 	{
 		name: "Dun",
 		url: "https://dunsuite.com",
 		image: "/products/dun.png",
+		description: "A comprehensive suite of productivity tools for teams",
+		categories: ["Productivity", "Team Tools"],
+		technologies: ["Vue.js", "Node.js", "MongoDB"]
 	},
 	{
 		name: "DunTasks",
 		url: "https://duntasks.com",
 		image: "/products/duntasks.png",
+		description: "Simple and intuitive task management application",
+		categories: ["Productivity", "Task Management"],
+		technologies: ["React", "Firebase", "Material-UI"]
 	},
 ];
+
 
 export const socialLinks = [
 	{

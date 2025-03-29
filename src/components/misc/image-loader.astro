@@ -41,7 +41,10 @@ const { src, alt, class: className = '', width, height } = Astro.props;
           if (entry.isIntersecting) {
             const img = entry.target.querySelector('img');
             if (img && img.getAttribute('data-src')) {
-              img.src = img.getAttribute('data-src');
+              const dataSrc = img.getAttribute('data-src');
+              if (dataSrc) {
+                img.src = dataSrc;
+              }
               img.removeAttribute('data-src');
             }
             observer.unobserve(entry.target);
