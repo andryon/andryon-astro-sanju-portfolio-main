@@ -18,6 +18,10 @@ export function setTheme(theme: Theme) {
   localStorage.setItem('theme', theme);
   document.documentElement.classList.remove('light', 'dark');
   document.documentElement.classList.add(theme);
+  
+  // Update color scheme dan background color
+  document.documentElement.style.colorScheme = theme;
+  document.documentElement.style.backgroundColor = theme === 'dark' ? '#000000' : '#ffffff';
 }
 
 // Initialize theme on page load

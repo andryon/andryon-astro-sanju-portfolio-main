@@ -1,25 +1,72 @@
+import { ViewTransition } from 'astro:transitions';
 import ThemeToggle from '../components/ThemeToggle.astro';
 
-<html lang="en">
+<html lang="en" class="dark">
   <head>
+    <!-- Tambahkan style blocking -->
+    <style is:inline>
+      :root {
+        --theme-bg: #ffffff;
+        --theme-text: #000000;
+      }
+      
+      html {
+        background-color: var(--theme-bg);
+        color: var(--theme-text);
+      }
+
+      body {
+        opacity: 0;
+      }
+
+      .loaded body {
+        opacity: 1;
+        transition: opacity 0.1s ease;
+      }
+    </style>
+    
+    <!-- Load theme script sebelum apapun -->
+    <script is:inline src="/theme.js"></script>
+    
+    <!-- Prevent FOUC script -->
     <script is:inline>
-      // Immediately inject initial theme to prevent flash
-      const theme = (() => {
-        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-          return localStorage.getItem('theme');
+      document.documentElement.classList.add('loaded');
+    </script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <ViewTransition client:only />
+
+    <!-- Add these meta tags -->
+    <meta name="color-scheme" content="dark light">
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000">
+    
+    <script is:inline>
+      // Script ini harus dijalankan secepat mungkin
+      (function() {
+        function getTheme() {
+          if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+            return localStorage.getItem('theme');
+          }
+          return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         }
-        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          return 'dark';
-        }
-        return 'light';
+
+        const theme = getTheme();
+        document.documentElement.classList.add(theme);
+        document.documentElement.style.colorScheme = theme;
       })();
-      document.documentElement.classList.add(theme);
     </script>
   </head>
-  <body>
+  <body class="bg-[#000000] text-white">
     <nav>
-      <ThemeToggle />
+      <theme-toggle>
+        <!-- Import ThemeToggle component at the top of the file -->
+        {/* Need to import ThemeToggle component */}
+      </theme-toggle>
     </nav>
-    <slot />
+    <main>
+      <slot />
+    </main>
   </body>
 </html> 
