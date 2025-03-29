@@ -3,16 +3,22 @@ import WritingLayout from '@layouts/writing-layout.astro';
 import { ScrollProgress } from '@components/misc';
 import { type CollectionEntry, getCollection } from 'astro:content';
 import { getReadingTime } from '@utils/index';
-const posts = await getCollection('writing');
-type Props = CollectionEntry<'writing'>;
 
-const { slug } = Astro.params;
-const post = posts.find((page) => page.slug === slug);
+export async function getStaticPaths() {
+	const posts = await getCollection('writing');
+	return posts.map((post) => ({
+		params: { slug: post.slug },
+		props: { post },
+	}));
+}
 
-if (!post) return Astro.redirect('/404');
+interface Props {
+	post: CollectionEntry<'writing'>;
+}
+
+const { post } = Astro.props;
 
 const { Content } = await post.render();
-
 const readingTime = getReadingTime(post.body);
 ---
 
