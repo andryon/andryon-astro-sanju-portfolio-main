@@ -38,63 +38,51 @@ export const ogImage = {
 
 export const products = [
 	{
-		name: "Fli.so",
-		url: "https://fli.so",
-		image: "/products/fli.png",
-		description: "A modern URL shortener with powerful analytics and customization features",
-		categories: ["Web App", "SaaS"],
-		technologies: ["Next.js", "TypeScript", "TailwindCSS"]
+		name: "staria coffee",
+		url: "https://www.instagram.com/kopi.staria/",
+		image: "/products/logo-staria.png",
+		description: "A coffee shop that serves a variety of coffee and tea",
+		categories: ["Coffee"],
+		technologies: ["Instagram", "Social Media"]
 	},
 	{
-		name: "Uiino",
-		url: "https://uiino.com",
-		image: "/products/uiino.png",
-		description: "A design system and component library for modern web applications",
-		categories: ["Design System", "UI Library"],
-		technologies: ["React", "TypeScript", "Storybook"]
+		name: "rollova studio",
+		url: "https://rollovastudio.framer.website",
+		image: "/products/logo-rollova.png",
+		description: "Turn ideas into MVPs in a week",
+		categories: ["MVP", "Digital Agency", "Framer", "Web Design", "Web Development"],
+		technologies: ["Framer", "Web Design", "Web Development"]
 	},
 	{
-		name: "SticAI",
-		url: "https://sticai.com",
-		image: "/products/sticai.png",
-		description: "AI-powered sticker creation platform for messaging apps",
-		categories: ["AI", "Creative Tools"],
+		name: "bytenova",
+		url: "https://bytenova.vercel.app",
+		image: "/products/logo-bytenova.png",
+		description: "A platform that brings innovative and environmentally-responsive concepts in its endeavor to create sustainable solutions in carbon emission reduction.",
+		categories: ["Carbon Emission Reduction"],
 		technologies: ["Python", "TensorFlow", "React"]
-	},
-	{
-		name: "Dun",
-		url: "https://dunsuite.com",
-		image: "/products/dun.png",
-		description: "A comprehensive suite of productivity tools for teams",
-		categories: ["Productivity", "Team Tools"],
-		technologies: ["Vue.js", "Node.js", "MongoDB"]
-	},
-	{
-		name: "DunTasks",
-		url: "https://duntasks.com",
-		image: "/products/duntasks.png",
-		description: "Simple and intuitive task management application",
-		categories: ["Productivity", "Task Management"],
-		technologies: ["React", "Firebase", "Material-UI"]
 	},
 ];
 
 
 export const socialLinks = [
 	{
-		label: "@x",
-		url: "https://x.com/spikeysanju",
+		label: "instagram",
+		url: "https://www.instagram.com/ui.andryon",
+	},
+	{
+		label: "threads",
+		url: "https://www.threads.net/@ui.andryon",
 	},
 	{
 		label: "email",
-		url: "mailto:work@sanju.sh",
+		url: "mailto:halo@jiwakreator.com",
 	},
 	{
 		label: "github",
-		url: "https://github.com/spikeysanju",
+		url: "https://github.com/andryon",
 	},
 	{
 		label: "linkedin",
-		url: "https://www.linkedin.com/in/imsanju",
+		url: "https://www.linkedin.com/in/andryon",
 	},
 ];
