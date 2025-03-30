@@ -1,15 +1,16 @@
 import { defineCollection, z } from "astro:content";
 
-const whoami = defineCollection({
+const project = defineCollection({
 	type: "content",
 	// Type-check frontmatter using a schema
 	schema: z.object({
 		title: z.string(),
 		description: z.string(),
+		category: z.string(),
+		image: z.string().optional(),
 		// Transform string to Date object
 		pubDate: z.coerce.date(),
 		updatedDate: z.coerce.date().optional(),
-		heroImage: z.string().optional(),
 		readingTime: z.number().optional(),
 	}),
 });
@@ -57,4 +58,4 @@ const ship = defineCollection({
 	}),
 });
 
-export const collections = { writing, thought, ship, whoami };
+export const collections = {project, writing, thought, ship };

@@ -1,0 +1,29 @@
+---
+import { type CollectionEntry, getCollection } from 'astro:content';
+import ProjectLayout from '../../layouts/project-layout.astro';
+import { getReadingTime } from '../../utils/index';
+import { ScrollProgress } from '../../components/misc';
+
+
+export async function getStaticPaths() {
+	const posts = await getCollection('project');
+	return posts.map((post) => ({
+		params: { slug: post.slug },
+		props: { post },
+	}));
+}
+
+interface Props {
+	post: CollectionEntry<'project'>;
+}
+
+const { post } = Astro.props;
+
+const { Content } = await post.render();
+const readingTime = getReadingTime(post.body);
+---
+
+<ProjectLayout {...post.data} readingTime={readingTime}>
+	<Content />
+	<ScrollProgress />
+</ProjectLayout>

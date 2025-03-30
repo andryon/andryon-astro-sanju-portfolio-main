@@ -12,6 +12,10 @@ export const menuItems: MenuItem[] = [
 		url: "/",
 	},
 	{
+		label: "projects",
+		url: "/projects",
+	},
+	{
 		label: "writings",
 		url: "/writings",
 	},
@@ -28,7 +32,7 @@ export const menuItems: MenuItem[] = [
 export const title = "Andryon's Space";
 export const description = "A internet space for Andryon.";
 export const image = "/images/ogimage.png";
-export const url = "https://andryon.space";
+export const url = "https://jiwakreator.com";
 
 export const ogImage = {
 	src: "/images/ogimage.png",
@@ -87,7 +91,7 @@ export const socialLinks = [
 	},
 	{
 		label: "email",
-		url: "mailto:work@sanju.sh",
+		url: "mailto:work@andryon",
 	},
 	{
 		label: "github",
