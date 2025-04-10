@@ -50,10 +50,6 @@ export const products = [
 
 export const socialLinks = [
 	{
-		label: "threads",
-		url: "https://threads.net/@andrian.chyn",
-	},
-	{
 		label: "instagram",
 		url: "https://www.instagram.com/andrian.chyn",
 	},
