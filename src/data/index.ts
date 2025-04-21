@@ -39,11 +39,19 @@ export const ogImage = {
 export const products = [
 	{
 		name: "Staria Coffee",
-		url: "https://instagram.com/kopi.staria",
+		url: "https://tiktok.com/@kopi.staria",
 		image: "/products/logo-staria.png",
 		description: "A coffee shop that serves a variety of coffee.",
 		categories: ["Coffee", "Coffee Shop"],
-		technologies: ["Instagram"]
+		technologies: ["TikTok"]
+	},
+	{
+		name: "Rollova Studio",
+		url: "https://threads.net/1weekprototype",
+		image: "/products/logo-rollova.png",
+		description: "A design studio that creates beautiful and functional products.",
+		categories: ["Design", "Design Studio"],
+		technologies: ["Figma"]
 	}
 ];
 
