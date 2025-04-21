@@ -6,7 +6,13 @@ import { BaseHead } from '@components/seo';
 import RootLayout from '@layouts/root-layout.astro';
 import { clsx } from '@utils/index';
 
-type Props = CollectionEntry<'writing'>['data'];
+interface Props {
+	title: string;
+	description: string;
+	pubDate: Date;
+	heroImage?: string;
+	readingTime?: number;
+}
 
 const { title, description, pubDate, heroImage, readingTime } = Astro.props;
 ---
@@ -42,13 +48,13 @@ const { title, description, pubDate, heroImage, readingTime } = Astro.props;
 						{readingTime} min read
 					</p>
 				</div>
-				<!-- we're using the Image component from Astro to handle the image optimization -->
 				{
 					heroImage && (
 						<img
 							src={heroImage}
 							alt={title}
-							class='w-full rounded-lg'
+							class='w-full rounded-lg object-cover'
+							style="max-height: 400px;"
 						/>
 					)
 				}
