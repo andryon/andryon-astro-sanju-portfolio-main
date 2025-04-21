@@ -18,15 +18,30 @@ const { src, alt, class: className = '', width, height } = Astro.props;
     height={height}
     loading="lazy"
     decoding="async"
-    class="w-full h-auto transition-opacity duration-500 opacity-0"
-    onload="this.classList.remove('opacity-0'); this.classList.add('opacity-100');"
+    class="w-full h-full object-cover object-center transition-all duration-500 opacity-0 scale-105"
+    onload="this.classList.remove('opacity-0', 'scale-105'); this.classList.add('opacity-100', 'scale-100');"
   />
-  <div class="placeholder absolute inset-0 bg-gray-200 dark:bg-gray-800 animate-pulse-slow"></div>
+  <div class="placeholder absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800">
+    <div class="absolute inset-0 animate-shimmer bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+  </div>
 </div>
 
 <style>
   .image-wrapper img.opacity-100 + .placeholder {
     display: none;
+  }
+  
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+  
+  .animate-shimmer {
+    animation: shimmer 1.5s infinite;
   }
 </style>
 
@@ -50,7 +65,10 @@ const { src, alt, class: className = '', width, height } = Astro.props;
             observer.unobserve(entry.target);
           }
         });
-      }, { rootMargin: '50px' });
+      }, { 
+        rootMargin: '50px',
+        threshold: 0.1
+      });
       
       imageWrappers.forEach(wrapper => {
         observer.observe(wrapper);

@@ -21,22 +21,44 @@ const projects = (await getCollection('project')).sort(
 		/>
 	</head>
 	<RootLayout>
-		<div
-			id='Header+title'
-			class='flex flex-col w-full gap-6 max-w-xl'>
-			<Header />
-			<h1 class='w-full text-7xl font-medium tracking-tight'>projects</h1>
+		<div class="max-w-4xl mx-auto px-4 py-12">
+			<div class="mb-12">
+				<Header />
+				<h1 class='text-6xl md:text-7xl font-medium tracking-tight mt-8 mb-4 bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent'>Projects</h1>
+				<p class="text-gray-600 dark:text-gray-400 max-w-2xl">A collection of my work and experiments. Each project represents a unique challenge and learning experience.</p>
+			</div>
 
-			{
-				projects.map((project) => (
-					<ProjectItem
-						title={project.data.title}
-						date={project.data.pubDate}
-						slug={project.slug}
-						image={project.data.image}
-					/>
-				))
-			}
+			<div class="grid gap-6">
+				{
+					projects.map((project, index) => (
+						<div class="transform transition-all duration-300 hover:translate-x-1 opacity-0 animate-fade-in group" style={`animation-delay: ${index * 100}ms; animation-fill-mode: forwards;`}>
+							<ProjectItem
+								title={project.data.title}
+								date={project.data.pubDate}
+								slug={project.slug}
+								image={project.data.image}
+							/>
+						</div>
+					))
+				}
+			</div>
 		</div>
 	</RootLayout>
 </html>
+
+<style>
+	@keyframes fade-in {
+		from {
+			opacity: 0;
+			transform: translateY(10px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+	
+	.animate-fade-in {
+		animation: fade-in 0.5s ease-out;
+	}
+</style>
