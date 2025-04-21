@@ -5,17 +5,34 @@ const { title, date, slug } = Astro.props;
 ---
 
 <a href={`/writings/${slug}`} class="block">
-	<article class='flex flex-row items-center justify-between w-full p-2 rounded-md transition-all duration-300 hover:bg-gray-50 dark:hover:bg-gray-800/30'>
-		<div class="flex flex-col min-w-0">
-			<h3 class='text-sm font-medium text-gray-900 dark:text-white truncate pr-4'>{title}</h3>
-			<p class='text-xs text-gray-500 dark:text-gray-400'>
+	<article class='flex flex-row items-start sm:items-center justify-between w-full p-2 rounded-md transition-all duration-300 hover:bg-gray-50 dark:hover:bg-gray-800/30'>
+		<div class="flex flex-col min-w-0 flex-1">
+			<h3 class='text-sm font-medium text-gray-900 dark:text-white line-clamp-2 sm:line-clamp-1 pr-4'>{title}</h3>
+			<p class='text-xs text-gray-500 dark:text-gray-400 mt-0.5 sm:mt-0'>
 				<FormattedDate date={date} />
 			</p>
 		</div>
-		<div class="flex-shrink-0">
+		<div class="flex-shrink-0 mt-1 sm:mt-0">
 			<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400 dark:text-gray-500">
 				<path d="m9 18 6-6-6-6"/>
 			</svg>
 		</div>
 	</article>
 </a>
+
+<style>
+	/* Ensure line-clamp works across browsers */
+	.line-clamp-2 {
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+	
+	.line-clamp-1 {
+		display: -webkit-box;
+		-webkit-line-clamp: 1;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+</style>

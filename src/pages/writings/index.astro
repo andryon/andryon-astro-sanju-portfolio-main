@@ -33,21 +33,21 @@ const years = Object.keys(writingsByYear).sort((a, b) => Number(b) - Number(a));
 		/>
 	</head>
 	<RootLayout>
-		<div class="max-w-3xl mx-auto px-4 py-8">
-			<div class="mb-8">
+		<div class="max-w-3xl mx-auto px-4 py-6 sm:py-8">
+			<div class="mb-6 sm:mb-8">
 				<Header />
-				<h1 class='text-5xl md:text-6xl font-medium tracking-tight mt-6 mb-3 bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent'>Writings</h1>
+				<h1 class='text-4xl sm:text-5xl md:text-6xl font-medium tracking-tight mt-4 sm:mt-6 mb-3 bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent'>Writings</h1>
 			</div>
 
-			<div class="space-y-8">
+			<div class="space-y-6 sm:space-y-8">
 				{years.map((year) => (
-					<div class="space-y-2">
-						<h2 class="text-sm font-medium text-gray-400 dark:text-gray-500 mb-3">{year}</h2>
-						<div class="grid gap-1.5">
+					<div class="space-y-1.5 sm:space-y-2">
+						<h2 class="text-sm font-medium text-gray-400 dark:text-gray-500 mb-2 sm:mb-3">{year}</h2>
+						<div class="grid gap-1 sm:gap-1.5">
 							{writingsByYear[year].map((writing, index) => (
 								<div 
 									class="transform transition-all duration-300 hover:translate-x-1 opacity-0 animate-fade-in group" 
-									style={`animation-delay: ${index * 75}ms; animation-fill-mode: forwards;`}
+									style={`animation-delay: ${index * 50}ms; animation-fill-mode: forwards;`}
 								>
 									<WritingItem
 										title={writing.data.title}
@@ -68,7 +68,7 @@ const years = Object.keys(writingsByYear).sort((a, b) => Number(b) - Number(a));
 	@keyframes fade-in {
 		from {
 			opacity: 0;
-			transform: translateY(8px);
+			transform: translateY(6px);
 		}
 		to {
 			opacity: 1;
@@ -77,6 +77,6 @@ const years = Object.keys(writingsByYear).sort((a, b) => Number(b) - Number(a));
 	}
 	
 	.animate-fade-in {
-		animation: fade-in 0.4s ease-out;
+		animation: fade-in 0.3s ease-out;
 	}
 </style>
