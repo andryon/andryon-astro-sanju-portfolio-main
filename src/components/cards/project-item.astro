@@ -1,13 +1,21 @@
 ---
 import FormattedDate from "@components/misc/formatted-date.astro";
+import { ImageLoader } from "@components/misc";
 
-const { title, date, slug } = Astro.props;
+const { title, date, slug, image } = Astro.props;
 ---
 
 <a href={`/projects/${slug}`}>
-	<article class='flex flex-row items-center justify-between w-full'>
-		<h3 class='text-base font-medium'>{title}</h3>
-		<p class='text-gray-500 font-medium'>
+	<article class='flex flex-row items-center justify-between w-full gap-4'>
+		<div class='flex flex-row items-center gap-4'>
+			{image && (
+				<div class='w-12 h-12 overflow-hidden rounded-lg'>
+					<ImageLoader src={image} alt={title} width={24} height={24} />
+				</div>
+			)}
+			<h3 class='text-base font-medium'>{title}</h3>
+		</div>
+		<p class='text-gray-500 font-medium whitespace-nowrap'>
 			<FormattedDate date={date} />
 		</p>
 	</article>

@@ -33,6 +33,7 @@ const projects = (await getCollection('project')).sort(
 						title={project.data.title}
 						date={project.data.pubDate}
 						slug={project.slug}
+						image={project.data.image}
 					/>
 				))
 			}
