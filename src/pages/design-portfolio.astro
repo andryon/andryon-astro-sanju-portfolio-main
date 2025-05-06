@@ -1,0 +1,90 @@
+---
+import { Header } from '@components/misc';
+import { BaseHead } from '@components/seo';
+import { SITE_TITLE } from '@data/index';
+import RootLayout from '@layouts/root-layout.astro';
+
+// Sample portfolio data - you can move this to a separate data file later
+const portfolioItems = [
+  {
+    id: 1,
+    title: "Bitnova Wallet",
+    category: "Mobile UI",
+    image: "/assets/design/2022-bitnova.png",
+    description: "A mobile wallet application for the Bitnova blockchain platform, designed to provide users with a secure and user-friendly way to manage their digital assets.",
+    tools: ["Figma"],
+    link: "#"
+  },
+  {
+    id: 2,
+    title: "OSS Planters",
+    category: "Mobile UI",
+    image: "/assets/design/2022-oss-planters.png",
+    description: "One Stop Solution for Planters is an application used to monitor plantations.",
+    tools: ["Figma"],
+    link: "#"
+  },
+  // Add more projects as needed
+];
+---
+
+<!doctype html>
+<html lang='en'>
+  <head>
+    <BaseHead
+      title={`Design Portfolio | ${SITE_TITLE}`}
+      description="Explore my UI/UX design portfolio showcasing various projects and case studies"
+    />
+  </head>
+
+  <RootLayout>
+    <div class="flex flex-col w-full gap-6 max-w-6xl mx-auto px-4 py-8">
+      <Header />
+      
+      <div class="flex flex-col gap-8">
+        <div class="flex flex-col gap-4">
+          <h1 class="text-4xl font-medium">Design Portfolio</h1>
+          <p class="text-gray-700 dark:text-gray-400 text-lg">
+            A collection of my UI/UX design projects and case studies
+          </p>
+        </div>
+
+        <!-- Portfolio Gallery -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {portfolioItems.map((item) => (
+            <div class="group relative overflow-hidden rounded-lg aspect-square">
+              <img
+                src={item.image}
+                alt={item.title}
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <span class="text-sm text-gray-300">{item.category}</span>
+                  <h3 class="text-xl font-medium mt-2">{item.title}</h3>
+                  <p class="text-gray-200 mt-2 line-clamp-2">{item.description}</p>
+                  <div class="flex flex-wrap gap-2 mt-4">
+                    {item.tools.map((tool) => (
+                      <span class="px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full text-sm">
+                        {tool}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </RootLayout>
+</html>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style> 
