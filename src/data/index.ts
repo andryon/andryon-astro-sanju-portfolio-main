@@ -16,6 +16,10 @@ export const menuItems: MenuItem[] = [
 		url: "/projects",
 	},
 	{
+		label: "design",
+		url: "/design-portfolio",
+	},
+	{
 		label: "writings",
 		url: "/writings",
 	},
