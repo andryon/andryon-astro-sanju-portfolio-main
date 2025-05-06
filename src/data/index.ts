@@ -23,10 +23,10 @@ export const menuItems: MenuItem[] = [
 		label: "writings",
 		url: "/writings",
 	},
-	{
-		label: "thoughts",
-		url: "/thoughts",
-	}
+	// {
+	// 	label: "thoughts",
+	// 	url: "/thoughts",
+	// }
 ];
 
 export const title = "Andryon's Space";
